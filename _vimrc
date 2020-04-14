@@ -1,7 +1,16 @@
 set encoding=utf-8
 
+" Set Default FilePath
+cd E:\VIM\Vim Files
+
 " Leader
 let mapleader = " "
+
+"Relative Line Numbers
+set relativenumber
+
+" Set filepath to path of current open file
+autocmd BufEnter * silent! lcd %:p:h
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
@@ -99,10 +108,6 @@ if executable('ag')
     nnoremap \ :Ag<SPACE>
   endif
 endif
-
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
 
 " Numbers
 set number
