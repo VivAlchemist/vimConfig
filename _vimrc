@@ -13,9 +13,8 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'scrooloose/syntastic'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
-Plug 'altercation/vim-colors-solarized'
 Plug 'mhinz/vim-signify'
-Plug 'msanders/snipmate.vim'
+Plug 'garbas/vim-snipmate'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -26,10 +25,10 @@ call plug#end()
 let g:rainbow_active = 1
 
 "lightline
-let g:lightline = {'colorscheme': 'solarized dark'}
+let g:lightline = {'colorscheme': 'solarized dark',}
 
 "NerdTree
-map <C-n><Leader>n<CR>
+nnoremap <F6> :NERDTreeToggle<CR>
 
 "Indentguides Enabled always
 let g:indent_guides_enable_on_vim_startup = 1
@@ -43,11 +42,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-"Enable Colors Solarized
-syntax enable
-set background=dark
-colorscheme solarized
 
 "Change updatetime for vim-signify
 set updatetime=100
@@ -252,4 +246,3 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
-
