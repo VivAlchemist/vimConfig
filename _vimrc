@@ -1,37 +1,47 @@
 " Plugins will be downloaded under the specified directory.
-call plug#begin('~/.vim/plugged')
+call plug#begin('C:\Users\ZHammon\Vim Files\.vim\plugged')
 
 " Declare the list of plugins.
-Plug 'tpope/vim-sensible'
-Plug 'frazrepo/vim-rainbow'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'dhruvasagar/vim-table-mode'
 Plug 'scrooloose/syntastic'
-Plug 'honza/vim-snippets'
-Plug 'garbas/vim-snipmate'
-"Plug 'SirVer/ultisnips'
+" Plug 'sirver/ultisnips' " REQUIRES PYTHON TO RUN
+" Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-signify'
 Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'frazrepo/vim-rainbow'
+Plug 'tpope/vim-sensible'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'tomtom/tlib_vim'
+Plug 'vimwiki/vimwiki'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
-
+ 
 "Start of Plugin Configuration
+
+" Gruvbox
+set background=dark
+autocmd vimenter * ++nested colorscheme gruvbox
 
 "vim-rainbow
 let g:rainbow_active = 1
 
 "lightline
 let g:lightline = {'colorscheme': 'one',}
-
+ 
 "NerdTree
 nnoremap <F6> :NERDTreeToggle<CR>
+ 
+"Nerd Commenter
+
+let g:NERDCreateDefaultMappings = 1
 
 "Indentguides Enabled always
 let g:indent_guides_enable_on_vim_startup = 1
@@ -40,7 +50,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -48,16 +57,33 @@ let g:syntastic_check_on_wq = 0
 
 "Change updatetime for vim-signify
 set updatetime=100
-
-"SnipMate
+ 
+"VimWiki
+set nocompatible
 filetype plugin on
+syntax on
+let wiki = {}
+let wiki.path = 'H:\Wiki\'
+let wiki.index = 'main'
+"let wiki.syntax = 'markdown'
+"let wiki.ext = md
+let g:vimwiki_list = [wiki]
+"let g:vimwiki_global_ext = 0
 
 "End of Plugin Configuration
 
 set encoding=utf-8
 
+" Backup, Swap, and Undo File redirect
+set backup
+set backupdir=C:\Users\ZHammon\Vim\ Files\Backups\\
+set swapfile
+set directory=C:\Users\ZHammon\Vim\ Files\Swaps\\
+set undofile
+set undodir=C:\Users\ZHammon\Vim\ Files\Undos\\
+
 " Set Default FilePath
-cd E:\VIM\Vim Files
+cd C:\Users\ZHammon\Documents\My_Stuff\Notes\\
 
 " Leader
 let mapleader = " "
@@ -143,18 +169,31 @@ set complete+=kspell
 set diffopt+=vertical
 
 " Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
+" if filereadable($HOME . "/.vimrc.local")
+"   source ~/.vimrc.local
+" endif
 
 " Vim with all enhancements
 source $VIMRUNTIME/vimrc_example.vim
 
+" Clear all registers
+function! ClearRegisters()
+  let regs='abcdefghijklmnopqrstuvwxyz1234567890/-="*+'
+  let i = 0
+  while (i<strlen(regs))
+    exec 'let @'.regs[i].'=""'
+    let i=i+1
+  endwhile
+endfunction
+
+command! ClearRegisters call ClearRegisters()
+                          
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
 if &diffopt !~# 'internal'
   set diffexpr=MyDiff()
 endif
+
 function MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
